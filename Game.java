@@ -21,13 +21,14 @@ public class Game {
     JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
     JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName;
     Font titleFont = new Font("Fantasy", Font.PLAIN, 60);
-    Font normalFont = new Font("Times New Roman", Font.PLAIN, 30);
+    Font normalFont = new Font("Times New Roman", Font.PLAIN, 28);
     JButton startButton, choice1, choice2, choice3, choice4;
     JTextArea mainTextArea;
     int playerHP;
-    String weapon;
+    String weapon, position;
 
     TitleScreenHandler tsHandler = new TitleScreenHandler();
+    ChoiceHandler choiceHandler = new ChoiceHandler();
 
     public static void main(String[] args) {
         new Game();
@@ -101,6 +102,8 @@ public class Game {
         choice1.setFont(normalFont);
         choice1.setFocusPainted(false);
         choiceButtonPanel.add(choice1);
+        choice1.addActionListener(choiceHandler);//handles choices made
+        choice1.setActionCommand("c1");
 
         choice2 = new JButton("Choice 2");
         choice2.setBackground(Color.black);
@@ -108,6 +111,8 @@ public class Game {
         choice2.setFont(normalFont);
         choice2.setFocusPainted(false);
         choiceButtonPanel.add(choice2);
+        choice2.addActionListener(choiceHandler);
+        choice2.setActionCommand("c2");
 
         choice3 = new JButton("Choice 3");
         choice3.setBackground(Color.black);
@@ -115,6 +120,8 @@ public class Game {
         choice3.setFont(normalFont);
         choice3.setFocusPainted(false);
         choiceButtonPanel.add(choice3);
+        choice3.addActionListener(choiceHandler);
+        choice3.setActionCommand("c3");
 
         choice4 = new JButton("Choice 4");
         choice4.setBackground(Color.black);
@@ -122,6 +129,9 @@ public class Game {
         choice4.setFont(normalFont);
         choice4.setFocusPainted(false);
         choiceButtonPanel.add(choice4);
+        choice4.addActionListener(choiceHandler);
+        choice4.setActionCommand("c4");
+
         //adding player stats(HP weapon choice)
         playerPanel= new JPanel();
         playerPanel.setBounds(100,15,600,50);
@@ -160,6 +170,29 @@ public class Game {
         weapon = "Dem Hands";
         weaponLabelName.setText(weapon);//displaying weapon name
         hpLabelNumber.setText("" + playerHP); //displaying HP
+
+        townGate(); // calls townGate Method
+    }
+    public void townGate() {
+        position = "townGate";// Will show player's place
+
+        mainTextArea.setText("You are at the gate of the town.\n A Guard is standing in front of you.\n\n What do you do?");
+
+        choice1.setText("Talk to the Guard");
+        choice2.setText("Run the fade");
+        choice3.setText("Leave");
+        choice4.setText("");
+    }
+
+    public void talkGuard(){
+        position = "talkGuard";
+
+        mainTextArea.setText("Hello there! I have never seen you in these parts?\n  I cannot let you pass.\n Sorry bout that...");
+
+        choice1.setText("Mean mug walk away");
+        choice2.setText("");
+        choice3.setText("");
+        choice4.setText("");
     }
 
     public class TitleScreenHandler implements ActionListener{
@@ -167,6 +200,28 @@ public class Game {
         public void actionPerformed(ActionEvent event){
 
             createGameScreen();
+        }
+    }
+    public class ChoiceHandler implements ActionListener{
+
+        public void actionPerformed(ActionEvent event){
+
+            String yourChoice = event.getActionCommand();
+
+            switch(position){
+                case "townGate":
+                switch(yourChoice){
+                    case "c1": talkGuard(); break;
+                    case "c2": break;
+                    case "c3": break;
+                }
+                break;
+                case "talkGuard":
+                switch(yourChoice){
+                    case "c1": townGate(); break;
+                }
+            }
+
         }
     }
 
