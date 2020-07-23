@@ -18,7 +18,7 @@ public class Game {
 
     JFrame window;
     Container con;
-    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel;
+    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtonPanel, playerPanel, picturPanel;
     JLabel titleNameLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName;
     Font titleFont = new Font("Fantasy", Font.PLAIN, 60);
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 28);
@@ -45,6 +45,10 @@ public class Game {
         window.setVisible(true);
         con = window.getContentPane();
         // Title page
+        //picturPanel = new JPanel();
+        //picturPanel.setBounds(150, 100, 500, 300);
+        //picturPanel.setBackground(Color.blue);
+        //con.add(picturPanel);
         titleNamePanel = new JPanel();
         titleNamePanel.setBounds(100, 100, 600, 150);
         titleNamePanel.setBackground(Color.black);
@@ -213,7 +217,7 @@ public class Game {
     public void crossRoad() {
         position = "crossRoad";
 
-        mainTextArea.setText("You are a crossroad.\n If you go South, you will go back to the town.");
+        mainTextArea.setText("You are at a crossroad.\n If you go South, you will go back to the town.");
 
         choice1.setText("Go North");
         choice2.setText("Go East");
