@@ -24,7 +24,7 @@ public class Game {
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 28);
     JButton startButton, choice1, choice2, choice3, choice4;
     JTextArea mainTextArea;
-    int playerHP, monsterHP, blueGem;
+    int playerHP, monsterHP, blueGem,healthBottle;
     String weapon, position;
 
     TitleScreenHandler tsHandler = new TitleScreenHandler();
@@ -231,12 +231,26 @@ public class Game {
         mainTextArea
                 .setText("There is a river.\n You drink the water and rest at riverside\n\n(Your HP recovers by 2)");
         playerHP = playerHP + 2;
+        healthBottle = 1;
         hpLabelNumber.setText("" + playerHP);
 
         choice1.setText("Go South");
         choice2.setText("");
         choice3.setText("");
         choice4.setText("");
+    }
+
+    public void north1(){
+        position = "north1";
+
+        mainTextArea
+                .setText("You look upon the beauty of the river...");
+
+        choice1.setText("Go South");
+        choice2.setText("");
+        choice3.setText("");
+        choice4.setText("");
+
     }
 
     public void east() {
@@ -408,8 +422,10 @@ public class Game {
                     break;
                 case "crossRoad":
                     switch (yourChoice) {
-                        case "c1":
-                            north();
+                        case "c1": if (healthBottle ==1) {
+                            north1();
+                        }else{
+                            north();}
                             break;
                         case "c2":
                             east();
@@ -429,6 +445,12 @@ public class Game {
                             break;
                     }
                     break;
+                case  "north1":
+                switch (yourChoice) {
+                    case "c1":
+                    crossRoad();
+                } 
+                break; 
                 case "east":
                     switch (yourChoice) {
                         case "c1":
