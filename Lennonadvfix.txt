@@ -1,0 +1,5 @@
+07/30/20
+fixed monster respawn. 
+-edit interaction with guard. gave a wrath element so that conversation with town gaurd can be different if you anger him.
+-Still need to add weapon attach attributes(Short Sword) and find whereabouts of guard.
+xneed to change interaction between guard telling guard you will help him. 

@@ -24,7 +24,8 @@ public class Game {
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 28);
     JButton startButton, choice1, choice2, choice3, choice4;
     JTextArea mainTextArea;
-    int playerHP, monsterHP, blueGem,healthBottle;
+    int playerHP, monsterHP, blueGem, healthBottle, guardWrath;
+
     String weapon, position;
 
     TitleScreenHandler tsHandler = new TitleScreenHandler();
@@ -45,10 +46,10 @@ public class Game {
         window.setVisible(true);
         con = window.getContentPane();
         // Title page
-        //picturPanel = new JPanel();
-        //picturPanel.setBounds(150, 100, 500, 300);
-        //picturPanel.setBackground(Color.blue);
-        //con.add(picturPanel);
+        // picturPanel = new JPanel();
+        // picturPanel.setBounds(150, 100, 500, 300);
+        // picturPanel.setBackground(Color.blue);
+        // con.add(picturPanel);
         titleNamePanel = new JPanel();
         titleNamePanel.setBounds(100, 100, 600, 150);
         titleNamePanel.setBackground(Color.black);
@@ -168,7 +169,7 @@ public class Game {
     }
 
     public void playerSetup() {
-        playerHP = 15;
+        playerHP = 25;
         monsterHP = 20;
         weapon = "Dem Hands";
         weaponLabelName.setText(weapon);// displaying weapon name
@@ -184,7 +185,7 @@ public class Game {
                 .setText("You are at the gate of the town.\n A Guard is standing in front of you.\n\n What do you do?");
 
         choice1.setText("Talk to the Guard");
-        choice2.setText("Run the fade");
+        choice2.setText("(remove choice)");
         choice3.setText("Leave");
         choice4.setText("");
     }
@@ -193,9 +194,88 @@ public class Game {
         position = "talkGuard";
 
         mainTextArea.setText(
-                "Hello there! I have never seen you in these parts?\n  I cannot let you pass.\n not with that monster out there...");
+                "Hello there! You must be new to these parts.\n I regret to inform you I cannot allow you to pass\n not while monsters are lingering around...\n\n (he is darting his eyes left to right frantically.\nWonder where this monster he speaks of is..)");
 
         choice1.setText("Walk away");
+        choice2.setText("Monster??");
+        choice3.setText("");
+        choice4.setText("");
+    }
+
+    public void altGuard() {
+        position = "altGuard";
+
+        mainTextArea.setText(
+                "Back again are you?? I'll tell you this once\n LEAVE ME ALONE!\n\n(the guard is standing ready with his spear pointed at you..");
+
+        choice1.setText("Walk away");
+        choice2.setText("fight him");
+        choice3.setText("");
+        choice4.setText("");
+
+    }
+
+    public void guardTalkMonster() {
+        position = "guardTalkMonster";
+
+        mainTextArea.setText(
+                "Yes! You heard me correctly! A fellow\nguard was sent to rid the area of the beast but\nhe has not returned....I fear for his safety...");
+
+        choice1.setText("Monster's description");
+        choice2.setText("yea..good luck..");
+        choice3.setText("");
+        choice4.setText("");
+    }
+
+    public void monsterDesc() {
+        position = "monsterDesc";
+
+        mainTextArea.setText(
+                "Well...its only about 4 feet tall but\nit is extremely strong and fast! I think its\n gathering its power from the blue gem on its head..");
+
+        choice1.setText("Gem?");
+        choice2.setText("I'll handle it");
+        choice3.setText("Ima just head out...");
+        choice4.setText("");
+    }
+
+    public void gem() {
+        position = "gem";
+
+        mainTextArea.setText(
+                "Yes a blue gem. The scoundrel snuck\ninto our town and stole it from the\n chief's own\nresidence! It is important we get that item\nback! I hope my fellow guard makes it back soon.. ");
+
+        choice1.setText("I'll help!");
+        choice2.setText("sounds like a nope");
+        choice3.setText("Such a coward!");
+        choice4.setText("");
+    }
+
+    public void guardCoward() {
+        position = "guardCoward";
+
+        mainTextArea.setText(
+                "A COWARD!? You DARE call me a coward!?\n I have more important things to deal with than\n a disrespectful runt as yourself!\n Away with you!!\n\n(Looks like you incurred the guard's wrath...)");
+
+        guardWrath = 1;
+
+        choice1.setText("I should go...");
+        choice2.setText("");
+        choice3.setText("");
+        choice4.setText("");
+
+    }
+
+    public void handleIt() {
+        position = "handleIt";
+
+        mainTextArea.setText(
+                "You will?! I would be in your debt\nif you could atleast find my fellow guard! But you dont\n look prepared for such a task...here take this.\n\n(Guard handed you a short sword!!)");
+
+        weapon = "Short Sword";
+        weaponLabelName.setText("Short Sword");
+
+        choice1.setText("I'll be back!");
         choice2.setText("");
         choice3.setText("");
         choice4.setText("");
@@ -204,11 +284,11 @@ public class Game {
     public void attackGuard() {
         position = "attackGuard";
 
-        mainTextArea.setText("Guard: What the What!? \n He proceeds to dropkick you.\n\n receive 3 damage ");
-        playerHP = playerHP - 3;
+        mainTextArea.setText("Guard: What the What!? \n He proceeds to dropkick you.\n\n receive 5 damage ");
+        playerHP = playerHP - 5;
         hpLabelNumber.setText("" + playerHP);
 
-        choice1.setText("Ouch! back to the gate");
+        choice1.setText("Ouch! time to go!");
         choice2.setText("");
         choice3.setText("");
         choice4.setText("");
@@ -229,8 +309,8 @@ public class Game {
     public void north() {
         position = "north";
         mainTextArea
-                .setText("There is a river.\n You drink the water and rest at riverside\n\n(Your HP recovers by 2)");
-        playerHP = playerHP + 2;
+                .setText("There is a river.\n You drink the water and rest at riverside\n\n(Your HP recovers by 10)");
+        playerHP = playerHP + 10;
         healthBottle = 1;
         hpLabelNumber.setText("" + playerHP);
 
@@ -240,11 +320,10 @@ public class Game {
         choice4.setText("");
     }
 
-    public void north1(){
+    public void north1() {
         position = "north1";
 
-        mainTextArea
-                .setText("You look upon the beauty of the river...");
+        mainTextArea.setText("You look upon the beauty of the river...");
 
         choice1.setText("Go South");
         choice2.setText("");
@@ -276,6 +355,17 @@ public class Game {
 
     }
 
+    public void west1() {
+        position = "west1";
+        mainTextArea.setText(
+                "You see a winding road ahead of you.\nLooks like the real adventure starts here...\n\n will you continue?? ");
+
+        choice1.setText("I'm ready!");
+        choice2.setText("um..well..");
+        choice3.setText("");
+        choice4.setText("");
+    }
+
     public void fight() {
         position = "fight";
         mainTextArea.setText("Monster HP: " + monsterHP + "\n \n What do you do?!");
@@ -294,6 +384,8 @@ public class Game {
         if (weapon.equals("Dem Hands")) {
             playerDamage = new java.util.Random().nextInt(3);
         } else if (weapon.equals("Long Sword")) {
+            playerDamage = new java.util.Random().nextInt(10);
+        } else if (weapon.equals("Short Sword")) {
             playerDamage = new java.util.Random().nextInt(8);
         }
 
@@ -346,7 +438,7 @@ public class Game {
     public void lose() {
         position = "lose";
 
-        mainTextArea.setText("End of the road for you.\n \n Game Over!!");
+        mainTextArea.setText("you met with a terrible fate...\n \n Game Over!!");
 
         choice1.setText("Try Again");
         choice2.setText("");
@@ -364,12 +456,12 @@ public class Game {
         mainTextArea.setText(
                 "Guard: You killed the monster!?\n thank you so much! Please enter our town!! \n \n THE END??");
 
-        choice1.setText("");
+        choice1.setText("step into town");
         choice2.setText("");
         choice3.setText("");
         choice4.setText("");
-        choice1.setVisible(false);
-        choice2.setVisible(false);
+        //choice1.setVisible(false);
+        //choice2.setVisible(false);
         choice3.setVisible(false);
         choice4.setVisible(false);
     }
@@ -394,6 +486,8 @@ public class Game {
                         case "c1":
                             if (blueGem == 1) {
                                 ending();
+                            } else if (guardWrath == 1) {
+                                altGuard();
                             } else {
                                 talkGuard();
                             }
@@ -406,26 +500,94 @@ public class Game {
                             break;
                     }
                     break;
+                case "altGuard":
+                    switch (yourChoice) {
+                        case "c1":
+                            crossRoad();
+                            break;
+                        case "c2":
+                            attackGuard();
+                            break;
+                    }
+                    break;
                 case "talkGuard":
                     switch (yourChoice) {
                         case "c1":
                             townGate();
                             break;
+                        case "c2":
+                            guardTalkMonster();
+                            break;
+                    }
+                    break;
+                case "guardTalkMonster":
+                    switch (yourChoice) {
+                        case "c1":
+                            monsterDesc();
+                            break;
+                        case "c2":
+                            townGate();
+                            break;
+                    }
+                    break;
+                case "monsterDesc":
+                    switch (yourChoice) {
+                        case "c1":
+                            gem();
+                            break;
+                        case "c2":
+                            handleIt();
+                            break;
+                        case "c3":
+                            townGate();
+                            break;
+                    }
+                    break;
+                case "gem":
+                    switch (yourChoice) {
+                        case "c1":
+                            handleIt();
+                            break;
+                        case "c2":
+                            townGate();
+                            break;
+                        case "c3":
+                        guardCoward();
+                            break;
+                    }
+                    break;
+                case "handleIt":
+                    switch (yourChoice) {
+                        case "c1":
+                            crossRoad();
+                            break;
+                    }
+                    break;
+                case "guardCoward":
+                    switch (yourChoice) {
+                        case "c1":
+                            crossRoad();
+                            break;
+                        case "c2":
+                            break;
+
                     }
                     break;
                 case "attackGuard":
                     switch (yourChoice) {
                         case "c1":
-                            townGate();
+                            crossRoad();
                             break;
                     }
                     break;
                 case "crossRoad":
                     switch (yourChoice) {
-                        case "c1": if (healthBottle ==1) {
-                            north1();
-                        }else{
-                            north();}
+                        case "c1":
+                            if (healthBottle == 1) {
+                                north1();
+                            } else {
+                                north();
+                            }
                             break;
                         case "c2":
                             east();
@@ -434,7 +596,11 @@ public class Game {
                             townGate();
                             break;
                         case "c4":
-                            west();
+                            if (blueGem == 1) {
+                                west1();
+                            } else {
+                                west();
+                            }
                             break;
                     }
                     break;
@@ -445,12 +611,13 @@ public class Game {
                             break;
                     }
                     break;
-                case  "north1":
-                switch (yourChoice) {
-                    case "c1":
-                    crossRoad();
-                } 
-                break; 
+                case "north1":
+                    switch (yourChoice) {
+                        case "c1":
+                            crossRoad();
+                            break;
+                    }
+                    break;
                 case "east":
                     switch (yourChoice) {
                         case "c1":
@@ -468,6 +635,16 @@ public class Game {
                             break;
                     }
                     break;
+                case "west1":
+                    switch (yourChoice) {
+                        case "c1":
+                            break;
+                        case "c2":
+                            crossRoad();
+                            break;
+                    }
+                    break;
+
                 case "fight":
                     switch (yourChoice) {
                         case "c1":
